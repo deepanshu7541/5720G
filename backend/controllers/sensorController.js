@@ -17,8 +17,14 @@ exports.receiveSensorData = async (req, res) => {
     windows: systemState.windows,
     timestamp: Date.now(),
   });
-  await event.save();
-
+  try{
+    console.log('✅ Event saved:', event);
+    await event.save();
+  }
+  catch (error) {
+    console.error('❌ Failed to save event:', error);
+    res.status(500).json({ error: 'Failed to save event' });
+  }
   // Emit update to frontend
   const io = req.app.get('socketio');
   io.emit('stateUpdate', systemState);

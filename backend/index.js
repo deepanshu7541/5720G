@@ -1,13 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const mongoose = require('mongoose');
 const PORT = 4000;
 
 app.use(cors());
 app.use(express.json());
 
-const sensorRoutes = require('./routes/sensorRoutes');
+const sensorRoutes = require('./routes/sensors');
 app.use('/api/sensors', sensorRoutes);
+
+// Connect to MongoDB
+// mongoose.connect('mongodb://localhost:27017/lumosense', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://mongo:27017/lumosense', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("✅ Connected to MongoDB"))
+.catch(err => console.error("❌ MongoDB connection error:", err));
+
 
 app.listen(PORT, () => {
   console.log(`✅ Backend running on http://localhost:${PORT}`);
