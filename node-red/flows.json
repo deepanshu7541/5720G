@@ -1,0 +1,197 @@
+[
+  {
+    "id": "lumosenseFlow",
+    "type": "tab",
+    "label": "LumoSense Sensors",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "inject_motion",
+    "type": "inject",
+    "z": "lumosenseFlow",
+    "name": "Toggle Motion",
+    "props": [
+      {
+        "p": "payload.motion",
+        "vt": "bool"
+      }
+    ],
+    "repeat": "5",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "true",
+    "payloadType": "bool",
+    "x": 140,
+    "y": 100,
+    "wires": [
+      [
+        "function_motion"
+      ]
+    ]
+  },
+  {
+    "id": "function_motion",
+    "type": "function",
+    "z": "lumosenseFlow",
+    "name": "Switch Motion TRUE/FALSE",
+    "func": "// Toggle motion state stored in context\ncontext.motion = (context.motion === undefined) ? true : !context.motion;\n\n// Add topic for Join node\nmsg.topic = \"motion\";\n\n// Prepare payload\nmsg.payload = { motion: context.motion };\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 400,
+    "y": 100,
+    "wires": [
+      [
+        "join_sensors"
+      ]
+    ]
+  },
+  {
+    "id": "inject_temp",
+    "type": "inject",
+    "z": "lumosenseFlow",
+    "name": "Generate Temperature Tick",
+    "props": [
+      {
+        "p": "payload.temperature",
+        "vt": "num"
+      }
+    ],
+    "repeat": "5",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.2,
+    "topic": "",
+    "payload": "25",
+    "payloadType": "num",
+    "x": 160,
+    "y": 200,
+    "wires": [
+      [
+        "function_temp"
+      ]
+    ]
+  },
+  {
+    "id": "function_temp",
+    "type": "function",
+    "z": "lumosenseFlow",
+    "name": "Random 20-30 °C",
+    "func": "// Produce random temperature 20–30 °C\nconst randomTemp = Math.round((Math.random() * 10) + 20);\n\n// Add topic for Join node\nmsg.topic = \"temperature\";\n\n// Prepare payload\nmsg.payload = { temperature: randomTemp };\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 400,
+    "y": 200,
+    "wires": [
+      [
+        "join_sensors"
+      ]
+    ]
+  },
+  {
+    "id": "join_sensors",
+    "type": "join",
+    "z": "lumosenseFlow",
+    "name": "Combine Motion + Temp",
+    "mode": "custom",
+    "build": "object",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "timeout": "",
+    "count": "2",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "",
+    "reduceFixup": "",
+    "x": 670,
+    "y": 150,
+    "wires": [
+      [
+        "function_flatten",
+        "debug_combined"
+      ]
+    ]
+  },
+  {
+    "id": "function_flatten",
+    "type": "function",
+    "z": "lumosenseFlow",
+    "name": "Flatten Payload",
+    "func": "// Flatten nested motion and temperature\nmsg.payload = {\n  motion: msg.payload.motion.motion,\n  temperature: msg.payload.temperature.temperature\n};\n\nmsg.headers = {\n  \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 870,
+    "y": 220,
+    "wires": [
+      [
+        "http_to_backend"
+      ]
+    ]
+  },
+  {
+    "id": "http_to_backend",
+    "type": "http request",
+    "z": "lumosenseFlow",
+    "name": "POST to backend /sensors",
+    "method": "POST",
+    "ret": "txt",
+    "url": "http://backend:4000/sensors",
+    "tls": "",
+    "x": 1120,
+    "y": 220,
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "wires": [
+      [
+        "debug_response"
+      ]
+    ]
+  },
+  {
+    "id": "debug_combined",
+    "type": "debug",
+    "z": "lumosenseFlow",
+    "name": "Combined Payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 970,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "debug_response",
+    "type": "debug",
+    "z": "lumosenseFlow",
+    "name": "Backend Response",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 1360,
+    "y": 220,
+    "wires": []
+  }
+]
