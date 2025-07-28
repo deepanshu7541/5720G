@@ -13,7 +13,7 @@ const ProfilePage = () => {
     name: "Deepanshu Chand",
     email: "deepanshu@gmail.com",
     phone: "+1 (437) 696-7541",
-    location: "New York, NY",
+    location: "Ontario, ON",
     bio: "Smart home enthusiast and energy efficiency advocate. Love using technology to make life more sustainable.",
     joinDate: "January 2024",
     avatar: "👤",

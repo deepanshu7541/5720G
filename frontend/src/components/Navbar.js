@@ -1,5 +1,3 @@
-"use client"
-
 import { Link, useLocation } from "react-router-dom"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
@@ -12,7 +10,7 @@ const Navbar = ({ onLogout, notifications, systemState }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white border-b border-border z-50">
       <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <div className="bg-blue-600 text-white p-2 rounded-lg">
             <Lightbulb className="h-5 w-5" />
           </div>
@@ -20,6 +18,13 @@ const Navbar = ({ onLogout, notifications, systemState }) => {
             <h1 className="text-lg font-semibold text-gray-900">LumoSense Dashboard</h1>
             <p className="text-xs text-gray-600">Real-time lighting management</p>
           </div>
+        </div> */}
+        <div className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="LumoSense Logo"
+            className="h-12 w-40 object-contain rounded-lg"
+          />
         </div>
 
         <div className="flex items-center gap-6">
@@ -29,7 +34,7 @@ const Navbar = ({ onLogout, notifications, systemState }) => {
           </Badge>
 
           <div className="flex items-center gap-2">
-            <Button variant={location.pathname === "/" ? "default" : "ghost"} size="sm" asChild>
+            <Button variant={location.pathname === "/" ? "default" : "ghost"} className="border-radius:1px" size="sm" asChild>
               <Link to="/">
                 <Home className="h-4 w-4 mr-2" />
                 Dashboard
@@ -40,7 +45,7 @@ const Navbar = ({ onLogout, notifications, systemState }) => {
               variant={location.pathname === "/notifications" ? "default" : "ghost"}
               size="sm"
               asChild
-              className="relative"
+              className="relative rounded-lg"
             >
               <Link to="/notifications">
                 <Bell className="h-4 w-4 mr-2" />
@@ -53,14 +58,14 @@ const Navbar = ({ onLogout, notifications, systemState }) => {
               </Link>
             </Button>
 
-            <Button variant={location.pathname === "/settings" ? "default" : "ghost"} size="sm" asChild>
+            <Button variant={location.pathname === "/settings" ? "default" : "ghost"} className="rounded-lg" size="sm" asChild>
               <Link to="/settings">
                 <Settings className="h-4 w-4 mr-2" />
                 Settings
               </Link>
             </Button>
 
-            <Button variant={location.pathname === "/profile" ? "default" : "ghost"} size="sm" asChild>
+            <Button variant={location.pathname === "/profile" ? "default" : "ghost"} className="rounded-lg" size="sm" asChild>
               <Link to="/profile">
                 <User className="h-4 w-4 mr-2" />
                 Profile

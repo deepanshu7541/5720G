@@ -25,11 +25,13 @@ services:
 
   frontend:
     build: ./frontend
-    # Publish React static server on host port 3000
     ports:
       - "3000:3000"
-    # Environment variable to point to backend via host.docker.internal
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # prevent override by host
     environment:
+      - CHOKIDAR_USEPOLLING=true
       - REACT_APP_BACKEND_URL=http://host.docker.internal:4000
     networks:
       - lumosense_net
