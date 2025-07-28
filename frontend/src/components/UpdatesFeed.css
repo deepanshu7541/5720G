@@ -1,0 +1,93 @@
+.updates-feed {
+    height: fit-content;
+  }
+  
+  .updates-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+  
+  .update-item {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-left: 4px solid transparent;
+  }
+  
+  .update-item.update-success {
+    background-color: #f0fdf4;
+    border-left-color: #10b981;
+  }
+  
+  .update-item.update-warning {
+    background-color: #fffbeb;
+    border-left-color: #f59e0b;
+  }
+  
+  .update-item.update-error {
+    background-color: #fef2f2;
+    border-left-color: #ef4444;
+  }
+  
+  .update-item.update-info {
+    background-color: #eff6ff;
+    border-left-color: #3b82f6;
+  }
+  
+  .update-icon {
+    font-size: 16px;
+    margin-top: 2px;
+  }
+  
+  .update-content {
+    flex: 1;
+  }
+  
+  .update-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  
+  .update-header h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+    margin: 0;
+  }
+  
+  .update-type {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-description {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0 0 4px 0;
+    line-height: 1.4;
+  }
+  
+  .update-time {
+    font-size: 10px;
+    color: #94a3b8;
+  }
+  
+  @media (max-width: 768px) {
+    .updates-list {
+      max-height: 400px;
+    }
+  
+    .update-item {
+      padding: 12px;
+    }
+  }
+  
