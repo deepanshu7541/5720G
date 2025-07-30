@@ -1,13 +1,11 @@
 version: '3'
 
-# Define a custom network for clarity
 networks:
   lumosense_net:
 
 services:
   mongo:
     image: mongo
-    # Expose the standard Mongo port
     ports:
       - "27017:27017"
     networks:
@@ -15,7 +13,6 @@ services:
 
   backend:
     build: ./backend
-    # Publish container port 4000 on host port 4000
     ports:
       - "4000:4000"
     depends_on:
@@ -29,7 +26,7 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-      - /app/node_modules  # prevent override by host
+      - /app/node_modules 
     environment:
       - CHOKIDAR_USEPOLLING=true
       - REACT_APP_BACKEND_URL=http://host.docker.internal:4000
@@ -38,7 +35,6 @@ services:
 
   node-red:
     image: nodered/node-red
-    # Mount the flows.json you will import below
     volumes:
       - ./node-red/flows.json:/data/flows.json
     ports:

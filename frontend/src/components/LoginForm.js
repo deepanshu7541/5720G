@@ -49,7 +49,7 @@ const LoginForm = ({ onLogin }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="bg-blue-600 text-white p-3 rounded-xl">
               <Lightbulb className="h-6 w-6" />
@@ -58,6 +58,13 @@ const LoginForm = ({ onLogin }) => {
             <Leaf className="h-6 w-6 text-green-600" />
           </div>
           <p className="text-gray-600">Smart Lighting Management System</p>
+        </div> */}
+        <div className="flex items-center">
+          <img
+            src="/logo.png"
+            alt="LumoSense Logo"
+            className="h-12 w-40 object-contain rounded-lg vertical-align: middle"
+          />
         </div>
 
         <div className="flex bg-gray-100 rounded-lg p-1 mb-6">

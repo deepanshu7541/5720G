@@ -81,7 +81,7 @@
     "id": "function_temp",
     "type": "function",
     "z": "lumosenseFlow",
-    "name": "Random 20-30 °C",
+    "name": "Temprature",
     "func": "// Produce random temperature 20–30 °C\nconst randomTemp = Math.round((Math.random() * 10) + 20);\n\n// Add topic for Join node\nmsg.topic = \"temperature\";\n\n// Prepare payload\nmsg.payload = { temperature: randomTemp };\n\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
