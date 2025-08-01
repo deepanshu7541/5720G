@@ -37,9 +37,9 @@ LumoSense simulates a smart room environment that automatically adjusts lights a
 
 ### Clone & Launch the Project
 
-git clone https://github.com/deepanshu7541/5720G.git 
-cd 5720G 
-docker-compose up –build
+- git clone https://github.com/deepanshu7541/5720G.git 
+- cd 5720G 
+- docker-compose up –build
 
 
 ### App URLs
@@ -78,4 +78,5 @@ Override automation state via frontend:
 - 🧪 Manual test cases run via Postman or curl
 
 
-
+## 📚 Credits
+- Created by Deepanshu Chand (GitHub: @deepanshu7541)
